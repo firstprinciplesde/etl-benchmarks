@@ -1,42 +1,5 @@
 {
- "setup": {
-  "max_retries": 3,
-  "min_retry_interval_millis": 15000,
-  "notebook_task": {
-   "base_parameters": {
-    "catalog": "{{job.parameters.catalog}}",
-    "incremental_batches_to_run": "{{job.parameters.incremental_batches_to_run}}",
-    "scale_factor": "{{job.parameters.scale_factor}}",
-    "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
-    "wh_db": "{{job.parameters.wh_db}}"
-   },
-   "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/setup"
-  },
-  "retry_on_timeout": true,
-  "task_key": "setup"
- },
- "cleanup": {
-  "depends_on": [
-   {
-    "outcome": "true",
-    "task_key": "delete_when_finished_TRUE_FALSE"
-   }
-  ],
-  "max_retries": 3,
-  "min_retry_interval_millis": 15000,
-  "notebook_task": {
-   "base_parameters": {
-    "catalog": "{{job.parameters.catalog}}",
-    "scale_factor": "{{job.parameters.scale_factor}}",
-    "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
-    "wh_db": "{{job.parameters.wh_db}}"
-   },
-   "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/teardown"
-  },
-  "retry_on_timeout": true,
-  "task_key": "cleanup"
- },
- "day": [
+ "tasks": [
   {
    "max_retries": 3,
    "min_retry_interval_millis": 15000,
@@ -48,9 +11,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/simulate_filedrops"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/simulate_filedrops",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "simulate_filedrops"
   },
   {
@@ -69,9 +34,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "bronzeaccount"
   },
   {
@@ -90,9 +57,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "bronzecashtransaction"
   },
   {
@@ -111,9 +80,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "bronzecustomer"
   },
   {
@@ -132,9 +103,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "bronzedailymarket"
   },
   {
@@ -153,9 +126,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "bronzeholdings"
   },
   {
@@ -174,9 +149,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "bronzetrade"
   },
   {
@@ -195,9 +172,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/ingest_bronze",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "bronzewatches"
   },
   {
@@ -215,9 +194,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/account_updates_from_customer"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/bronze/account_updates_from_customer",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "account_updates_from_customer"
   },
   {
@@ -235,9 +216,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/DimCustomer Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/DimCustomer Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "DimCustomer_Incremental"
   },
   {
@@ -261,9 +244,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/DimAccount Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/DimAccount Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "DimAccount_Incremental"
   },
   {
@@ -284,9 +269,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/DimTrade Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/DimTrade Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "DimTrade_Incremental"
   },
   {
@@ -304,9 +291,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/currentaccountbalances Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/currentaccountbalances Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "currentaccountbalances_Incremental"
   },
   {
@@ -327,9 +316,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactCashBalances Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactCashBalances Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "FactCashBalances_Incremental"
   },
   {
@@ -348,9 +339,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactMarketHistory Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactMarketHistory Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "FactMarketHistory_Incremental"
   },
   {
@@ -372,9 +365,11 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactHoldings Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactHoldings Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "FactHoldings_Incremental"
   },
   {
@@ -395,36 +390,71 @@
      "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
      "wh_db": "{{job.parameters.wh_db}}"
     },
-    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactWatches Incremental"
+    "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/incremental/FactWatches Incremental",
+    "source": "WORKSPACE"
    },
    "retry_on_timeout": true,
+   "run_if": "ALL_SUCCESS",
    "task_key": "FactWatches_Incremental"
   }
  ],
- "parameters": [
-  {
-   "default": "firstprinciplesde",
-   "name": "catalog"
+ "setup": {
+  "max_retries": 3,
+  "min_retry_interval_millis": 15000,
+  "notebook_task": {
+   "base_parameters": {
+    "catalog": "{{job.parameters.catalog}}",
+    "incremental_batches_to_run": "{{job.parameters.incremental_batches_to_run}}",
+    "scale_factor": "{{job.parameters.scale_factor}}",
+    "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
+    "wh_db": "{{job.parameters.wh_db}}"
+   },
+   "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/setup",
+   "source": "WORKSPACE"
   },
-  {
-   "default": "10",
-   "name": "scale_factor"
+  "retry_on_timeout": true,
+  "run_if": "ALL_SUCCESS",
+  "task_key": "setup"
+ },
+ "teardown": {
+  "depends_on": [
+   {
+    "outcome": "true",
+    "task_key": "delete_when_finished_TRUE_FALSE"
+   }
+  ],
+  "max_retries": 3,
+  "min_retry_interval_millis": 15000,
+  "notebook_task": {
+   "base_parameters": {
+    "catalog": "{{job.parameters.catalog}}",
+    "scale_factor": "{{job.parameters.scale_factor}}",
+    "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
+    "wh_db": "{{job.parameters.wh_db}}"
+   },
+   "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/teardown",
+   "source": "WORKSPACE"
   },
-  {
-   "default": "/Volumes/firstprinciplesde/tpcdi_raw_data/tpcdi_volume/",
-   "name": "tpcdi_directory"
+  "retry_on_timeout": true,
+  "run_if": "ALL_SUCCESS",
+  "task_key": "cleanup"
+ },
+ "sdp_setup": {
+  "max_retries": 3,
+  "min_retry_interval_millis": 15000,
+  "notebook_task": {
+   "base_parameters": {
+    "catalog": "{{job.parameters.catalog}}",
+    "incremental_batches_to_run": "{{job.parameters.incremental_batches_to_run}}",
+    "scale_factor": "{{job.parameters.scale_factor}}",
+    "tpcdi_directory": "{{job.parameters.tpcdi_directory}}",
+    "wh_db": "{{job.parameters.wh_db}}"
+   },
+   "notebook_path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/DLT/pipelines_setup",
+   "source": "WORKSPACE"
   },
-  {
-   "default": "etl_benchmark_AugmentedIncremental_Cluster",
-   "name": "wh_db"
-  },
-  {
-   "default": "TRUE",
-   "name": "delete_tables_when_finished"
-  },
-  {
-   "default": "365",
-   "name": "incremental_batches_to_run"
-  }
- ]
+  "retry_on_timeout": true,
+  "run_if": "ALL_SUCCESS",
+  "task_key": "setup"
+ }
 }

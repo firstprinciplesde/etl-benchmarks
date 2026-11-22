@@ -1,0 +1,54 @@
+== billing complete up to: 2026-11-22T06:10:00.000Z
+
+== by product / SKU
+JOBS       PREMIUM_JOBS_SERVERLESS_COMPUTE_US_EAST_N_VIRGINIA             664.4 DBU  $  232.53
+SQL        PREMIUM_SERVERLESS_SQL_COMPUTE_US_EAST_N_VIRGINIA              100.1 DBU  $   70.06
+JOBS       PREMIUM_JOBS_COMPUTE_(PHOTON)                                  353.0 DBU  $   52.95
+DLT        PREMIUM_JOBS_SERVERLESS_COMPUTE_US_EAST_N_VIRGINIA              94.8 DBU  $   33.18
+ALL_PURPOS PREMIUM_ALL_PURPOSE_COMPUTE_(PHOTON)                            50.2 DBU  $   27.63
+DLT        PREMIUM_DLT_ADVANCED_COMPUTE_(PHOTON)                           42.6 DBU  $   15.32
+DLT        PREMIUM_DLT_PRO_COMPUTE_(PHOTON)                                49.9 DBU  $   12.47
+JOBS       PREMIUM_JOBS_COMPUTE                                            65.7 DBU  $    9.85
+PREDICTIVE PREMIUM_JOBS_SERVERLESS_COMPUTE_US_EAST_N_VIRGINIA              13.9 DBU  $    4.88
+NETWORKING INTERNET_EGRESS_FROM_US_EAST_N_VIRGINIA                          0.0 DBU  $    0.00
+NETWORKING PUBLIC_CONNECTIVITY_DATA_PROCESSED_US_EAST_N_VIRGINIA            0.0 DBU  $    0.00
+           TOTAL Databricks (list price)                                 1434.6 DBU  $  458.88
+
+== by UTC day
+2026-11-20     154.9 DBU  $   61.19
+2026-11-21     828.3 DBU  $  276.38
+2026-11-22     451.4 DBU  $  121.31
+
+== Databricks cost by category (list price)
+$  156.56  Benchmark runs (full + daily jobs)
+$   70.06  SQL warehouses (wh_large + analysis queries)
+$   60.97  DLT pipelines (not tied to a job run)
+$   54.99  Earlier benchmark rounds / other benchmark jobs
+$   45.48  Data generation + Driver
+$   37.28  Benchmark setup / teardown jobs
+$   27.63  All-purpose cluster (ap_2xlarge)
+$    4.88  Predictive optimization
+$    1.02  Other jobs
+$    0.00  Other: NETWORKING
+
+== top 12 jobs
+$  30.92  etl-benchmark-daily-setup
+$  13.82  etl-benchmark-SF10000-AugmentedGen
+$  12.74  etl-benchmark-SF10-AugmentedGen
+$  11.61  etl-benchmark-daily-srv_small
+$  11.56  etl-benchmark-daily-srv_xlarge
+$  11.31  etl-benchmark-daily-srv_optimized
+$  11.23  etl-benchmark-daily-srv_medium
+$  10.78  etl-benchmark-daily-srv_large
+$   9.70  etl-benchmark-full-srv_optimized
+$   8.18  etl-benchmark-SF10000-SparkGen
+$   7.01  etl-benchmark-full-srv_small
+$   7.00  etl-benchmark-full-srv_large
+
+== EC2 (node time x on-demand list price; spot workers priced as on-demand, so slightly high)
+m8gd.2xlarge     105.6 node-h  $  48.67
+m8gd.8xlarge       6.8 node-h  $  12.60
+m8gd.xlarge       22.1 node-h  $   5.11
+TOTAL EC2 (estimate) $66.37
+
+GRAND TOTAL: Databricks $458.88 + EC2 $66.37 = $525.25

@@ -1,0 +1,28 @@
+{
+ "channel": "PREVIEW",
+ "photon": true,
+ "libraries": [
+  {
+   "notebook": {
+    "path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/DLT/dlt_ingest_bronze"
+   }
+  },
+  {
+   "notebook": {
+    "path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/DLT/dlt_incremental"
+   }
+  },
+  {
+   "notebook": {
+    "path": "${var.tpcdi_path}/src/incremental_batches/augmented_incremental/DLT/dlt_incremental_fmh"
+   }
+  }
+ ],
+ "configuration": {
+  "catalog": "firstprinciplesde",
+  "scale_factor": "100",
+  "tpcdi_directory": "/Volumes/firstprinciplesde/tpcdi_raw_data/tpcdi_volume/",
+  "wh_db": "Firstprinciplesdataengineering_TPCDI_AugmentedIncremental_SDP"
+ },
+ "continuous": false
+}

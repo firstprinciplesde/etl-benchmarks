@@ -1,40 +1,29 @@
 # Databricks bundle
 
-Deploys one job per compute config. Each job does a full load, then 29 simulated incremental days.
+One job per benchmark setup, plus the shared setup and teardown jobs, the pipelines, the warehouse and the all-purpose cluster.
 
 ## Deploy
 
-1. Import the [databricks-tpc-di](https://github.com/shannon-barrow/databricks-tpc-di) repo into your workspace.
-2. Run its `AugmentedGen` job for your scale factor. This stages the daily files and tables in a Unity Catalog volume. Do it once per scale factor.
-3. Deploy, passing the workspace path of that repo:
+1. Import the [databricks-tpc-di](https://github.com/shannon-barrow/databricks-tpc-di) repo into your workspace and generate its data for your scale factor, once per size.
+2. Create the four serverless size compute objects (Beta) and put their IDs in [`scripts/serverless_ids.json`](scripts/serverless_ids.json). The file holds placeholders.
+3. Generate the resources, deploy once per scale factor, and run a job by its key:
 
 ```bash
-databricks bundle deploy -p <profile> --var tpcdi_path=/Workspace/Users/<you>/databricks-tpc-di
-databricks bundle run jc_2xlarge_sf10 -p <profile> --var tpcdi_path=/Workspace/Users/<you>/databricks-tpc-di
+python3 scripts/gen_resources.py            # needs pyyaml
+databricks bundle deploy -p <profile> --var tpcdi_path=/Workspace/Users/<you>/databricks-tpc-di --var scale_factor=100
+databricks bundle run full_jc_2xlarge -p <profile> --var tpcdi_path=/Workspace/Users/<you>/databricks-tpc-di
 ```
 
-Run any job by its key, for example `serverless_standard_sf10`. Job names look like `etl-benchmark-aug-<config>-sf10`.
+## Job keys
 
-## How the jobs are built
+| Key | What |
+|---|---|
+| `full_<setup>` | The full load, for `srv_standard`, `srv_optimized`, `srv_small` to `srv_xlarge`, `jc_xlarge`, `jc_2xlarge`, `jc_8xlarge`, `jc_2xlarge_spot`, `jc_2xlarge_nophoton`, `jc_2xlarge_min2`, `ap_2xlarge`, `wh_large`, `sdp_serverless`, `sdp_2xlarge` |
+| `daily_<setup>` | One simulated day. Run it six times, in order |
+| `daily_setup`, `daily_setup_dbt`, `daily_setup_sdp_*` | Untimed setup for the six days |
+| `daily_teardown` | Cleanup |
 
-[`resources/augmented_sf10.yml`](resources/augmented_sf10.yml) is generated. Don't edit it. Change [`scripts/gen_augmented.py`](scripts/gen_augmented.py) and run it:
+`resources/benchmark.yml` is generated. Don't edit it: change `scripts/gen_resources.py` or the templates and run the generator again. The generator uses the catalog `firstprinciplesde` and its volume path; change `CATALOG` and `VOL` at the top for your own.
 
-```bash
-python3 scripts/gen_augmented.py
-```
-
-The script takes the setup task and the 17-task day from [`augmented_template.json`](scripts/augmented_template.json), then chains 29 copies of the day after the full load. Each day starts when the previous day's last tasks finish. Task keys get a `_dNN` suffix, so every job has 496 tasks. It needs `pyyaml`.
-
-The repo's own design is a parent job that loops over a child job. A loop can wrap only one task, so this bundle unrolls the days instead.
-
-[`single_batch/`](single_batch/) holds the older layout, one batch per job. It isn't deployed.
-
-## Serverless jobs with a size limit
-
-Small, Medium and Large limits are set on a serverless compute object. Create the objects in the workspace (Compute, then Serverless), then put their IDs in [`scripts/serverless_ids.json`](scripts/serverless_ids.json) under `small`, `medium` and `large`. The generator doesn't read them yet. The limits are in beta and a workspace admin has to turn them on.
-
-## Settings worth knowing
-
-- Photon is on for every classic cluster except `jc_2xlarge_nophoton`.
-- Spot only applies to workers. The driver stays on-demand.
-- Each job drops its schema in a final cleanup task unless you set `delete_when_finished` to false.
+> [!NOTE]
+> I could not re-run these steps on a clean workspace after the benchmark finished.

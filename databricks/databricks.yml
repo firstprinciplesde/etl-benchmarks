@@ -4,9 +4,12 @@ bundle:
 variables:
   tpcdi_path:
     description: Workspace path of the databricks-tpc-di repo that holds the benchmark notebooks (the folder that contains src/).
+  scale_factor:
+    description: TPC-DI scale factor the pipelines and job defaults use. Redeploy to switch.
+    default: "100"
 
 include:
-  - resources/augmented_*.yml
+  - resources/*.yml
 
 targets:
   dev:
