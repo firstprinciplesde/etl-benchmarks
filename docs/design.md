@@ -1,6 +1,6 @@
 # Benchmark design
 
-Question the video answers: **for an ETL pipeline on Databricks, which compute gives you the best time for the money, for a big load and for a daily load?**
+Question: **for an ETL pipeline on Databricks, which compute gives you the best time for the money, for a full load plus six days?**
 
 ## 1. Workload
 
@@ -9,11 +9,11 @@ Every config runs two separate tests at each scale factor.
 | Test | What runs | What we time |
 |---|---|---|
 | **Full load** | Original TPC-DI single batch: all raw files (CSV, text, XML) to the finished star schema, Batch 1 history plus Batches 2 and 3 | Whole job, cold start included |
-| **Daily load** | Shannon's augmented incremental mode: start from the loaded warehouse, then 6 days in a row. Each day drops that day's files, Auto Loader into bronze, then the SCD2 and fact MERGEs | Each day on its own, cold start included. Report average day and the 6-day total |
+| **Six days** | Shannon's augmented incremental mode: start from the loaded warehouse, then 6 days in a row. Each day drops that day's files, Auto Loader into bronze, then the SCD2 and fact MERGEs | Each day on its own, cold start included. Report the average day and the six-day total |
 
 The daily test's starting state (a clone of the staged history) is setup, not benchmark, so it is not timed. Each day is its own job run, triggered like a daily schedule, so every day pays its own start-up, the same as in production.
 
-Scale factors: **SF100, SF1000, SF10000.** SF1000 data exists. SF100 and SF10000 are being generated for both tests.
+Scale factors: **SF 100, SF 1,000 and SF 10,000.**
 
 ## 2. Configs (16)
 
@@ -56,7 +56,7 @@ All the code comes from [shannon-barrow/databricks-tpc-di](https://github.com/sh
 | DBUs | `system.billing.usage` by job run, pipeline or warehouse, plus the idle tail |
 | Databricks $ | DBUs × `system.billing.list_prices` |
 | AWS $ (classic only) | Node-hours from cluster events × EC2 on-demand price (spot price for config 10) |
-| **Cost per full load, cost per day, cost per month of daily runs** | Derived |
+| **Cost per full load, cost per day, cost per six days** | Derived |
 
 Billing data lags a few hours, so the cost columns fill in after the runs.
 
@@ -72,5 +72,5 @@ AWS spend for steps 1 and 2 should be about $10 to $15. DBUs show up on the Data
 
 One table per scale factor, plus the answer in one line each:
 - **Best for a big load:** fastest, and cheapest per load.
-- **Best for a daily load:** cheapest per month at an acceptable time.
-- **When each compute makes sense,** which is the video's chapter list.
+- **Best for six days of loads:** cheapest at an acceptable time.
+- **When each compute makes sense,** .
