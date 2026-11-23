@@ -32,15 +32,15 @@ Each cell is the **full load plus six days** added together: startup minutes (wa
 | Serverless, Standard | startup 21 + run 30 = **51** min · **$0.75** | startup 20 + run 28 = **48** min · **$1.62** | startup 22 + run 74 = **96** min · **$7.52** |
 | Serverless Rate Limit, L | startup 1 + run 18 = **19** min · **$1.71** | startup 3 + run 23 = **26** min · **$5.44** | startup 1 + run 47 = **48** min · **$10.65** |
 | Serverless Rate Limit, S | startup 2 + run 18 = **20** min · **$1.56** | startup 2 + run 24 = **26** min · **$5.24** | startup 1 + run 49 = **50** min · **$11.81** |
-| Jobs Compute, 2xlarge, spot workers | startup 30 + run 18 = **48** min · **$1.46** | startup 26 + run 23 = **49** min · **$1.98** | startup 26 + run 63 = **89** min · **$4.63** |
+| Jobs Compute, 2xlarge, spot workers | startup 30 + run 18 = **48** min · **$1.46** | startup 26 + run 23 = **49** min · **$1.98** | startup 26 + run 63 = **89** min · **$4.63** † |
 | Serverless, Performance optimized | startup 1 + run 18 = **18** min · **$1.46** | startup 1 + run 25 = **26** min · **$5.43** | startup 1 + run 56 = **57** min · **$14.11** |
-| Jobs Compute, xlarge | startup 18 + run 20 = **38** min · **$0.99** | startup 17 + run 31 = **48** min · **$1.60** | startup 38 + run 104 = **142** min · **$7.71** |
-| Jobs Compute, 2xlarge, 2 to 8 workers | startup 13 + run 17 = **30** min · **$2.23** | startup 14 + run 22 = **35** min · **$3.23** | startup 31 + run 48 = **79** min · **$6.99** |
-| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
-| Serverless SQL warehouse, Large | startup 1 + run 16 = **17** min · **$11.27** | startup 1 + run 17 = **18** min · **$9.02** | startup 1 + run 30 = **31** min · **$13.44** |
-| All-Purpose Compute, 2xlarge | startup 14 + run 18 = **32** min · **$3.49** | startup 13 + run 24 = **37** min · **$5.57** | startup 10 + run 62 = **73** min · **$13.71** |
-| Jobs Compute, 8xlarge | startup 11 + run 16 = **28** min · **$5.61** | startup 12 + run 19 = **31** min · **$7.34** | startup 24 + run 30 = **54** min · **$13.00** |
-| Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** |
+| Jobs Compute, xlarge | startup 18 + run 20 = **38** min · **$0.99** | startup 17 + run 31 = **48** min · **$1.60** | startup 38 + run 104 = **142** min · **$7.71** † |
+| Jobs Compute, 2xlarge, 2 to 8 workers | startup 13 + run 17 = **30** min · **$2.23** | startup 14 + run 22 = **35** min · **$3.23** | startup 31 + run 48 = **79** min · **$6.99** ‡ |
+| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** † |
+| Serverless SQL warehouse, Large | startup 1 + run 16 = **17** min · **$11.27** | startup 1 + run 17 = **18** min · **$9.02** | startup 1 + run 30 = **31** min · **$13.44** † |
+| All-Purpose Compute, 2xlarge | startup 14 + run 18 = **32** min · **$3.49** | startup 13 + run 24 = **37** min · **$5.57** | startup 10 + run 62 = **73** min · **$13.71** † |
+| Jobs Compute, 8xlarge | startup 11 + run 16 = **28** min · **$5.61** | startup 12 + run 19 = **31** min · **$7.34** | startup 24 + run 30 = **54** min · **$13.00** ‡ |
+| Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** † |
 
 </details>
 
@@ -58,8 +58,8 @@ Each cell is the **full load plus six days** added together: startup minutes (wa
 | Serverless Rate Limit, L | startup 1 + run 18 = **19** min · **$1.71** | startup 3 + run 23 = **26** min · **$5.44** | startup 1 + run 47 = **48** min · **$10.65** |
 | Serverless Rate Limit, S | startup 2 + run 18 = **20** min · **$1.56** | startup 2 + run 24 = **26** min · **$5.24** | startup 1 + run 49 = **50** min · **$11.81** |
 | Serverless, Performance optimized | startup 1 + run 18 = **18** min · **$1.46** | startup 1 + run 25 = **26** min · **$5.43** | startup 1 + run 56 = **57** min · **$14.11** |
-| Jobs Compute, xlarge | startup 18 + run 20 = **38** min · **$0.99** | startup 17 + run 31 = **48** min · **$1.60** | startup 38 + run 104 = **142** min · **$7.71** |
-| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
+| Jobs Compute, xlarge | startup 18 + run 20 = **38** min · **$0.99** | startup 17 + run 31 = **48** min · **$1.60** | startup 38 + run 104 = **142** min · **$7.71** † |
+| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** † |
 
 </details>
 
@@ -71,21 +71,27 @@ Each cell is the **full load plus six days** added together: startup minutes (wa
 
 | Setup | SF 100 | SF 1,000 | SF 10,000 |
 |---|---|---|---|
-| Jobs Compute, 2xlarge, spot workers | startup 30 + run 18 = **48** min · **$1.46** | startup 26 + run 23 = **49** min · **$1.98** | startup 26 + run 63 = **89** min · **$4.63** |
-| Jobs Compute, 2xlarge, 2 to 8 workers | startup 13 + run 17 = **30** min · **$2.23** | startup 14 + run 22 = **35** min · **$3.23** | startup 31 + run 48 = **79** min · **$6.99** |
-| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
-| Serverless SQL warehouse, Large | startup 1 + run 16 = **17** min · **$11.27** | startup 1 + run 17 = **18** min · **$9.02** | startup 1 + run 30 = **31** min · **$13.44** |
-| All-Purpose Compute, 2xlarge | startup 14 + run 18 = **32** min · **$3.49** | startup 13 + run 24 = **37** min · **$5.57** | startup 10 + run 62 = **73** min · **$13.71** |
-| Jobs Compute, 8xlarge | startup 11 + run 16 = **28** min · **$5.61** | startup 12 + run 19 = **31** min · **$7.34** | startup 24 + run 30 = **54** min · **$13.00** |
-| Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** |
+| Jobs Compute, 2xlarge, spot workers | startup 30 + run 18 = **48** min · **$1.46** | startup 26 + run 23 = **49** min · **$1.98** | startup 26 + run 63 = **89** min · **$4.63** † |
+| Jobs Compute, 2xlarge, 2 to 8 workers | startup 13 + run 17 = **30** min · **$2.23** | startup 14 + run 22 = **35** min · **$3.23** | startup 31 + run 48 = **79** min · **$6.99** ‡ |
+| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** † |
+| Serverless SQL warehouse, Large | startup 1 + run 16 = **17** min · **$11.27** | startup 1 + run 17 = **18** min · **$9.02** | startup 1 + run 30 = **31** min · **$13.44** † |
+| All-Purpose Compute, 2xlarge | startup 14 + run 18 = **32** min · **$3.49** | startup 13 + run 24 = **37** min · **$5.57** | startup 10 + run 62 = **73** min · **$13.71** † |
+| Jobs Compute, 8xlarge | startup 11 + run 16 = **28** min · **$5.61** | startup 12 + run 19 = **31** min · **$7.34** | startup 24 + run 30 = **54** min · **$13.00** ‡ |
+| Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** † |
 
 </details>
 
+### How to read the costs
 
-Per-setup detail (full load and an average day, separately): [results/final_table.md](results/final_table.md).
+Run times are measured for every cell, from the Jobs API. Costs come from different places:
 
-> [!IMPORTANT]
-> One run per cell, so don't trust a two percent gap. AWS costs are node-hours times a price list, not Cost Explorer. Warehouse and all-purpose per-run costs are hourly billing divided between runs by time. This is derived from TPC-DI, not an official TPC-DI result, and is not comparable to published results.
+- **Exact:** read per run from `system.billing.usage` and priced with `system.billing.list_prices`. Every serverless job at all three sizes, and every Jobs Compute run at SF 100 and 1,000.
+- **Allocated:** hourly billing for a warehouse or all-purpose cluster, divided between the runs in that hour. Totals are right, one run can absorb idle minutes. SQL warehouse and All-Purpose Compute at SF 100 and 1,000.
+- **† Estimated:** billing had not landed when the table was built, so cost = node-minutes (run minutes for the warehouse) times a $ per minute measured on the same setup at SF 100 and 1,000. It can understate the real cost at 1 TB. SF 10,000 for Jobs Compute (xlarge, 2xlarge, spot, Photon off), All-Purpose Compute and the SQL warehouse.
+- **‡ Extrapolated:** only the full load and day 1 ran (days 2 to 6 repeat day 1), and the cost is scaled from SF 1,000 by run-minute ratio. The weakest numbers. SF 10,000 for Jobs Compute 8xlarge and 2xlarge with 2 to 8 workers.
+- **AWS (EC2):** node time times an on-demand list price, not Cost Explorer. Spot workers use one spot price sample.
+
+Details: [docs/cost-provenance.md](docs/cost-provenance.md). The images do not mark these, the text tables do.
 
 ## What was tested
 

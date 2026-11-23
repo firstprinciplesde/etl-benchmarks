@@ -1,6 +1,13 @@
 # Per-setup results, full load and an average day of six
 
-Minutes: idle (waiting), run (working), total. Dollars: Databricks list price plus AWS list price (classic only). One run per cell. Basis: exact = read from system tables per run; split = hourly billing divided between runs; estimated and extrapolated = see docs/cost-provenance.md.
+Minutes: startup (waiting for compute), run (working), total. Dollars: Databricks list price plus AWS list price (classic only). One run per cell.
+
+Basis column:
+- exact: read from system tables per run
+- split: hourly billing divided between runs
+- estimated: SF 10,000 cost from node-minutes times a rate measured at SF 100 and 1,000 (billing had not landed)
+- extrapolated: only the full load and day 1 ran, cost scaled from SF 1,000
+- details: docs/cost-provenance.md
 
 ### SF100
 
