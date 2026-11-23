@@ -19,7 +19,9 @@ The reasoning for each is in [docs/conclusions.md](docs/conclusions.md).
 
 Each cell is the **full load plus six days** added together: startup minutes (waiting for compute) + run minutes (working) = total minutes, and cost (Databricks plus AWS list price). Every cell is one run. In the picture, green is best and red is worst within each size.
 
-![Results: minutes and cost for every setup at three sizes, numbered: the three fastest and cheapest per size](docs/img/results-heat.png)
+### The main comparison
+
+![Main comparison: time and cost, the three fastest and cheapest per size numbered](docs/img/results-main.png)
 
 <details><summary>Same table as text</summary>
 
@@ -32,6 +34,18 @@ Each cell is the **full load plus six days** added together: startup minutes (wa
 | Serverless Rate Limit, L | startup 1 + run 18 = **19** min · **$1.71** | startup 3 + run 23 = **26** min · **$5.44** | startup 1 + run 47 = **48** min · **$10.65** |
 | Serverless Rate Limit, XL | startup 1 + run 18 = **18** min · **$1.65** | startup 1 + run 25 = **26** min · **$4.90** | startup 1 + run 40 = **41** min · **$11.89** |
 | Jobs Compute, xlarge | startup 18 + run 20 = **38** min · **$0.99** | startup 17 + run 31 = **48** min · **$1.60** | startup 38 + run 104 = **142** min · **$7.71** |
+| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
+
+</details>
+
+### The 2xlarge variants and the SQL warehouse
+
+![Variants: spot, Photon off, min 2 workers, 8xlarge, all-purpose and the SQL warehouse](docs/img/results-variants.png)
+
+<details><summary>Same table as text</summary>
+
+| Setup | SF 100 | SF 1,000 | SF 10,000 |
+|---|---|---|---|
 | Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
 | Jobs Compute, 2xlarge, spot workers | startup 30 + run 18 = **48** min · **$1.46** | startup 26 + run 23 = **49** min · **$1.98** | startup 26 + run 63 = **89** min · **$4.63** |
 | Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** |
