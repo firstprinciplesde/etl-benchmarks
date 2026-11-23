@@ -17,7 +17,11 @@ The reasoning for each is in [docs/conclusions.md](docs/conclusions.md).
 
 ## Results
 
-Each cell is the **full load plus six days** added together: idle minutes (waiting) + run minutes (working) = total minutes, and cost (Databricks plus AWS list price). Every cell is one run. In the picture, green is best and red is worst, within each size, for minutes and cost separately.
+Each cell is the **full load plus six days** added together: idle minutes (waiting) + run minutes (working) = total minutes, and cost (Databricks plus AWS list price). Every cell is one run. In the picture, green is best and red is worst within each size.
+
+![Results: minutes and cost for every setup at three sizes, sorted by score](docs/img/results-heat.png)
+
+<details><summary>Same table as text</summary>
 
 | Setup | SF 100 | SF 1,000 | SF 10,000 | Score |
 |---|---|---|---|---|
@@ -37,6 +41,8 @@ Each cell is the **full load plus six days** added together: idle minutes (waiti
 | Job cluster, 8xlarge | 11 + 16 = **28** min · **$5.61** | 12 + 19 = **31** min · **$7.34** | 24 + 30 = **54** min · **$13.00** † | **2.4** |
 | 2xlarge, Photon off | 14 + 24 = **37** min · **$1.58** | 24 + 40 = **64** min · **$3.12** | 26 + 184 = **210** min · **$16.91** † | **2.8** |
 | Pipeline, classic 2xlarge | 1 + 41 = **42** min · **$3.45** | 1 + 55 = **56** min · **$5.80** | 1 + 141 = **141** min · **$18.63** † | **4.1** |
+
+</details>
 
 **Score** = minutes × dollars at each size, averaged across the three sizes (geometric mean), shown relative to the best setup (1.0). Lower is better, and the table is sorted by it. It rewards setups that are both fast and cheap, so a setup that wins on only one of the two lands in the middle.
 
