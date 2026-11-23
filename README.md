@@ -27,11 +27,11 @@ Each cell is the **full load plus six days** added together: idle minutes (waiti
 |---|---|---|---|---|
 | Serverless Rate Limit, M | 2 + 18 = **19** min · **$1.58** | 1 + 24 = **26** min · **$5.15** | 1 + 40 = **41** min · **$11.14** | **1.0** |
 | Serverless Rate Limit, XL | 1 + 18 = **18** min · **$1.65** | 1 + 25 = **26** min · **$4.90** | 1 + 40 = **41** min · **$11.89** | **1.0** |
-| Serverless jobs, Standard | 21 + 30 = **51** min · **$0.75** | 20 + 28 = **48** min · **$1.62** | 22 + 74 = **96** min · **$7.52** | **1.1** |
+| Serverless, Standard | 21 + 30 = **51** min · **$0.75** | 20 + 28 = **48** min · **$1.62** | 22 + 74 = **96** min · **$7.52** | **1.1** |
 | Serverless Rate Limit, L | 1 + 18 = **19** min · **$1.71** | 3 + 23 = **26** min · **$5.44** | 1 + 47 = **48** min · **$10.65** | **1.1** |
 | Serverless Rate Limit, S | 2 + 18 = **20** min · **$1.56** | 2 + 24 = **26** min · **$5.24** | 1 + 49 = **50** min · **$11.81** | **1.1** |
 | Jobs Compute, 2xlarge, spot workers | 30 + 18 = **48** min · **$1.46** | 26 + 23 = **49** min · **$1.98** | 26 + 63 = **89** min · **$4.63** † | **1.2** |
-| Serverless jobs, Performance optimized | 1 + 18 = **18** min · **$1.46** | 1 + 25 = **26** min · **$5.43** | 1 + 56 = **57** min · **$14.11** | **1.2** |
+| Serverless, Performance optimized | 1 + 18 = **18** min · **$1.46** | 1 + 25 = **26** min · **$5.43** | 1 + 56 = **57** min · **$14.11** | **1.2** |
 | Jobs Compute, xlarge | 18 + 20 = **38** min · **$0.99** | 17 + 31 = **48** min · **$1.60** | 38 + 104 = **142** min · **$7.71** † | **1.2** |
 | Jobs Compute, 2xlarge, 2 to 8 workers | 13 + 17 = **30** min · **$2.23** | 14 + 22 = **35** min · **$3.23** | 31 + 48 = **79** min · **$6.99** † | **1.3** |
 | Jobs Compute, 2xlarge | 24 + 18 = **42** min · **$1.78** | 20 + 24 = **44** min · **$2.74** | 25 + 60 = **85** min · **$6.62** † | **1.4** |
