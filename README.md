@@ -43,7 +43,7 @@ Each cell is the **full load plus six days** added together: startup minutes (wa
 </details>
 
 
-† SF 10,000 classic and warehouse costs are estimates from smaller sizes, see [docs/cost-provenance.md](docs/cost-provenance.md). Per-setup detail (full load and an average day, separately): [results/final_table.md](results/final_table.md).
+Per-setup detail (full load and an average day, separately): [results/final_table.md](results/final_table.md).
 
 > [!IMPORTANT]
 > One run per cell, so don't trust a two percent gap. AWS costs are node-hours times a price list, not Cost Explorer. Warehouse and all-purpose per-run costs are hourly billing divided between runs by time. This is derived from TPC-DI, not an official TPC-DI result, and is not comparable to published results.
