@@ -19,40 +19,65 @@ The reasoning for each is in [docs/conclusions.md](docs/conclusions.md).
 
 Each cell is the **full load plus six days** added together: startup minutes (waiting for compute) + run minutes (working) = total minutes, and cost (Databricks plus AWS list price). Every cell is one run. In the picture, green is best and red is worst within each size.
 
-### The main comparison
+### All setups
 
-![Main comparison: time and cost, the three fastest and cheapest per size numbered](docs/img/results-main.png)
+![All 14 setups: time and cost at three sizes, sorted by Time × Cost](docs/img/results-all.png)
 
 <details><summary>Same table as text</summary>
 
 | Setup | SF 100 | SF 1,000 | SF 10,000 |
 |---|---|---|---|
-| Serverless, Standard | startup 21 + run 30 = **51** min · **$0.75** | startup 20 + run 28 = **48** min · **$1.62** | startup 22 + run 74 = **96** min · **$7.52** |
-| Serverless, Performance optimized | startup 1 + run 18 = **18** min · **$1.46** | startup 1 + run 25 = **26** min · **$5.43** | startup 1 + run 56 = **57** min · **$14.11** |
-| Serverless Rate Limit, S | startup 2 + run 18 = **20** min · **$1.56** | startup 2 + run 24 = **26** min · **$5.24** | startup 1 + run 49 = **50** min · **$11.81** |
 | Serverless Rate Limit, M | startup 2 + run 18 = **19** min · **$1.58** | startup 1 + run 24 = **26** min · **$5.15** | startup 1 + run 40 = **41** min · **$11.14** |
-| Serverless Rate Limit, L | startup 1 + run 18 = **19** min · **$1.71** | startup 3 + run 23 = **26** min · **$5.44** | startup 1 + run 47 = **48** min · **$10.65** |
 | Serverless Rate Limit, XL | startup 1 + run 18 = **18** min · **$1.65** | startup 1 + run 25 = **26** min · **$4.90** | startup 1 + run 40 = **41** min · **$11.89** |
+| Serverless, Standard | startup 21 + run 30 = **51** min · **$0.75** | startup 20 + run 28 = **48** min · **$1.62** | startup 22 + run 74 = **96** min · **$7.52** |
+| Serverless Rate Limit, L | startup 1 + run 18 = **19** min · **$1.71** | startup 3 + run 23 = **26** min · **$5.44** | startup 1 + run 47 = **48** min · **$10.65** |
+| Serverless Rate Limit, S | startup 2 + run 18 = **20** min · **$1.56** | startup 2 + run 24 = **26** min · **$5.24** | startup 1 + run 49 = **50** min · **$11.81** |
+| Jobs Compute, 2xlarge, spot workers | startup 30 + run 18 = **48** min · **$1.46** | startup 26 + run 23 = **49** min · **$1.98** | startup 26 + run 63 = **89** min · **$4.63** |
+| Serverless, Performance optimized | startup 1 + run 18 = **18** min · **$1.46** | startup 1 + run 25 = **26** min · **$5.43** | startup 1 + run 56 = **57** min · **$14.11** |
+| Jobs Compute, xlarge | startup 18 + run 20 = **38** min · **$0.99** | startup 17 + run 31 = **48** min · **$1.60** | startup 38 + run 104 = **142** min · **$7.71** |
+| Jobs Compute, 2xlarge, 2 to 8 workers | startup 13 + run 17 = **30** min · **$2.23** | startup 14 + run 22 = **35** min · **$3.23** | startup 31 + run 48 = **79** min · **$6.99** |
+| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
+| Serverless SQL warehouse, Large | startup 1 + run 16 = **17** min · **$11.27** | startup 1 + run 17 = **18** min · **$9.02** | startup 1 + run 30 = **31** min · **$13.44** |
+| All-Purpose Compute, 2xlarge | startup 14 + run 18 = **32** min · **$3.49** | startup 13 + run 24 = **37** min · **$5.57** | startup 10 + run 62 = **73** min · **$13.71** |
+| Jobs Compute, 8xlarge | startup 11 + run 16 = **28** min · **$5.61** | startup 12 + run 19 = **31** min · **$7.34** | startup 24 + run 30 = **54** min · **$13.00** |
+| Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** |
+
+</details>
+
+### Part 1: Serverless and the Jobs Compute job clusters
+
+![Part 1](docs/img/results-main.png)
+
+<details><summary>Same table as text</summary>
+
+| Setup | SF 100 | SF 1,000 | SF 10,000 |
+|---|---|---|---|
+| Serverless Rate Limit, M | startup 2 + run 18 = **19** min · **$1.58** | startup 1 + run 24 = **26** min · **$5.15** | startup 1 + run 40 = **41** min · **$11.14** |
+| Serverless Rate Limit, XL | startup 1 + run 18 = **18** min · **$1.65** | startup 1 + run 25 = **26** min · **$4.90** | startup 1 + run 40 = **41** min · **$11.89** |
+| Serverless, Standard | startup 21 + run 30 = **51** min · **$0.75** | startup 20 + run 28 = **48** min · **$1.62** | startup 22 + run 74 = **96** min · **$7.52** |
+| Serverless Rate Limit, L | startup 1 + run 18 = **19** min · **$1.71** | startup 3 + run 23 = **26** min · **$5.44** | startup 1 + run 47 = **48** min · **$10.65** |
+| Serverless Rate Limit, S | startup 2 + run 18 = **20** min · **$1.56** | startup 2 + run 24 = **26** min · **$5.24** | startup 1 + run 49 = **50** min · **$11.81** |
+| Serverless, Performance optimized | startup 1 + run 18 = **18** min · **$1.46** | startup 1 + run 25 = **26** min · **$5.43** | startup 1 + run 56 = **57** min · **$14.11** |
 | Jobs Compute, xlarge | startup 18 + run 20 = **38** min · **$0.99** | startup 17 + run 31 = **48** min · **$1.60** | startup 38 + run 104 = **142** min · **$7.71** |
 | Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
 
 </details>
 
-### The 2xlarge variants and the SQL warehouse
+### Part 2: the 2xlarge variants and the SQL warehouse
 
-![Variants: spot, Photon off, min 2 workers, 8xlarge, all-purpose and the SQL warehouse](docs/img/results-variants.png)
+![Part 2](docs/img/results-variants.png)
 
 <details><summary>Same table as text</summary>
 
 | Setup | SF 100 | SF 1,000 | SF 10,000 |
 |---|---|---|---|
-| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
 | Jobs Compute, 2xlarge, spot workers | startup 30 + run 18 = **48** min · **$1.46** | startup 26 + run 23 = **49** min · **$1.98** | startup 26 + run 63 = **89** min · **$4.63** |
-| Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** |
 | Jobs Compute, 2xlarge, 2 to 8 workers | startup 13 + run 17 = **30** min · **$2.23** | startup 14 + run 22 = **35** min · **$3.23** | startup 31 + run 48 = **79** min · **$6.99** |
-| Jobs Compute, 8xlarge | startup 11 + run 16 = **28** min · **$5.61** | startup 12 + run 19 = **31** min · **$7.34** | startup 24 + run 30 = **54** min · **$13.00** |
-| All-Purpose Compute, 2xlarge | startup 14 + run 18 = **32** min · **$3.49** | startup 13 + run 24 = **37** min · **$5.57** | startup 10 + run 62 = **73** min · **$13.71** |
+| Jobs Compute, 2xlarge | startup 24 + run 18 = **42** min · **$1.78** | startup 20 + run 24 = **44** min · **$2.74** | startup 25 + run 60 = **85** min · **$6.62** |
 | Serverless SQL warehouse, Large | startup 1 + run 16 = **17** min · **$11.27** | startup 1 + run 17 = **18** min · **$9.02** | startup 1 + run 30 = **31** min · **$13.44** |
+| All-Purpose Compute, 2xlarge | startup 14 + run 18 = **32** min · **$3.49** | startup 13 + run 24 = **37** min · **$5.57** | startup 10 + run 62 = **73** min · **$13.71** |
+| Jobs Compute, 8xlarge | startup 11 + run 16 = **28** min · **$5.61** | startup 12 + run 19 = **31** min · **$7.34** | startup 24 + run 30 = **54** min · **$13.00** |
+| Jobs Compute, 2xlarge, Photon off | startup 14 + run 24 = **37** min · **$1.58** | startup 24 + run 40 = **64** min · **$3.12** | startup 26 + run 184 = **210** min · **$16.91** |
 
 </details>
 
