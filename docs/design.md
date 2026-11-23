@@ -32,8 +32,6 @@ Compute is the main axis. Engine is the second, because how you build the ETL de
 | 12 | `jc_2xlarge_min2` | SQL notebooks (job) | Same as 8, 2 to 8 workers |
 | 13 | `ap_2xlarge` | SQL notebooks (job) | All-purpose cluster, same shape as 8 |
 | 14 | `wh_large` | Full load: SQL notebooks. Daily: dbt | SQL warehouse, serverless Large |
-| 15 | `sdp_serverless` | Spark Declarative Pipelines (DLT) | Serverless pipeline |
-| 16 | `sdp_2xlarge` | Spark Declarative Pipelines (DLT) | Classic pipeline, m8gd.2xlarge, 1 to 8 workers, Photon |
 
 The warehouse can't run the daily Python streaming notebooks, and Shannon's repo only wires dbt for the daily mode. So the warehouse gets the engine it would really use for each test.
 
@@ -45,14 +43,14 @@ All the code comes from [shannon-barrow/databricks-tpc-di](https://github.com/sh
 2. **Same data and code** per engine. DBR 18.x everywhere, Photon on everywhere except config 11, on-demand everywhere except config 10, and the driver the same type as the workers.
 3. **Idle cost counts.** A warehouse bills until auto-stop, and an all-purpose cluster until auto-termination. Real daily jobs pay that tail, so cost includes it. Auto-stop is 5 min on the warehouse and 10 min on the cluster.
 4. **One run per test.** Single runs, stated plainly in the write-up.
-5. **No overlap on classic.** Classic configs run one at a time (128 vCPU quota). Serverless, warehouse and SDP-serverless runs go in parallel, since they don't share compute.
+5. **No overlap on classic.** Classic configs run one at a time (128 vCPU quota). Serverless and warehouse runs go in parallel, since they don't share compute.
 6. **Untimed:** data generation, the daily-test setup clone, and cleanup.
 
 ## 4. What we measure
 
 | Metric | Source |
 |---|---|
-| Total time, start-up, processing | Jobs API task timings (the pipeline task for SDP) |
+| Total time, start-up, processing | Jobs API task timings |
 | DBUs | `system.billing.usage` by job run, pipeline or warehouse, plus the idle tail |
 | Databricks $ | DBUs × `system.billing.list_prices` |
 | AWS $ (classic only) | Node-hours from cluster events × EC2 on-demand price (spot price for config 10) |

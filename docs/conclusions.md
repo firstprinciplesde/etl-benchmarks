@@ -24,13 +24,12 @@ Cost is Databricks plus AWS list price, one combined number per size: the full l
 - **Cheapest: serverless standard, or close to it at every size.** You don't have to size or tune anything. SF 100: $0.75, the lowest. SF 1,000: $1.62, level with the cheapest classic job ($1.60). SF 10,000: $7.52, a bit above a small cluster on spot ($4.63, estimated).
 - **Fast with a cost limit: the serverless size caps** (S to XL). Same speed as performance optimized at SF 100 and 1,000, and cheaper than optimized at SF 10,000 (medium 40.7 min, $11.14 vs 56.9 min, $14.11).
 - **Fastest regardless of price: the SQL warehouse**, at every size.
-- **Never worth it:** all-purpose for scheduled jobs, Photon off, an 8xlarge job cluster, classic pipelines.
+- **Never worth it:** all-purpose for scheduled jobs, Photon off, and an 8xlarge job cluster.
 
 ### 2. Serverless
 - **Standard:** cheapest, but about 40% of its time is waiting for compute (19.5 of 48.0 min at SF 1,000, about 2 to 3.4 min per run).
 - **Performance optimized:** about 2x faster than standard for 3.4x the cost at SF 1,000 (25.6 vs 48.0 min, $5.43 vs $1.62); the priciest serverless job at SF 10,000.
 - **Size caps:** the cap jobs run in performance optimized mode (the job page shows Performance optimized: On, see docs/screenshots), so they start as fast as optimized: idle 0.7 to 2.5 min over seven runs, against 21 to 22.5 for standard. The compute object holds only the size. A cap limits how far the executors can scale (a Beta feature), not the total cost.
-- **Pipelines:** serverless pipelines cost about the same as optimized jobs, and are 2x slower at SF 10,000.
 
 ### 3. Classic job clusters
 - **Spot:** 18 to 30% cheaper in total, 4 to 14% more time (SF 100 +6.0 min, SF 1,000 +4.6, SF 10,000 +3.3). The saving is on the AWS part only. If cost is the goal on classic, use spot.
@@ -41,7 +40,7 @@ Cost is Databricks plus AWS list price, one combined number per size: the full l
 
 ### 4. SQL warehouse
 - Fastest everywhere: 17.0 / 17.7 / 30.8 min at SF 100 / 1,000 / 10,000.
-- Also the most expensive: the priciest setup at SF 100 ($11.27) and SF 1,000 ($9.02), and among the priciest at SF 10,000 ($13.44, behind optimized, all-purpose, no-Photon and classic pipelines at that size).
+- Also the most expensive: the priciest setup at SF 100 ($11.27) and SF 1,000 ($9.02), and among the priciest at SF 10,000 ($13.44, behind optimized, all-purpose and no-Photon at that size).
 - Premium shrinks with size: 15x standard at SF 100 ($11.27 vs $0.75), 1.8x at SF 10,000 ($13.44 vs $7.52), about level with optimized ($14.11).
 - Its six-day load ran as dbt.
 

@@ -1,6 +1,6 @@
 # etl-benchmarks
 
-**What one ETL pipeline costs, and how long it takes, on each Databricks compute option: 16 setups, 350 runs, a full load plus six days at three data sizes, so you can pick compute from numbers.**
+**What one ETL pipeline costs, and how long it takes, on each Databricks compute option: 14 setups, 294 runs, a full load plus six days at three data sizes, so you can pick compute from numbers.**
 
 These benchmarks are on Databricks. I'll be testing other platforms and tools next, and they'll land in this repo as they're done.
 
@@ -35,18 +35,16 @@ Each cell is the **full load plus six days** added together: idle minutes (waiti
 | Job cluster, xlarge | 18 + 20 = **38** min · **$0.99** | 17 + 31 = **48** min · **$1.60** | 38 + 104 = **142** min · **$7.71** † | **1.2** |
 | 2xlarge, 2 to 8 workers | 13 + 17 = **30** min · **$2.23** | 14 + 22 = **35** min · **$3.23** | 31 + 48 = **79** min · **$6.99** † | **1.3** |
 | Job cluster, 2xlarge | 24 + 18 = **42** min · **$1.78** | 20 + 24 = **44** min · **$2.74** | 25 + 60 = **85** min · **$6.62** † | **1.4** |
-| Pipeline, serverless | 1 + 20 = **20** min · **$1.57** | 1 + 28 = **28** min · **$4.55** | 1 + 108 = **108** min · **$14.95** † | **1.5** |
 | SQL warehouse, serverless Large | 1 + 16 = **17** min · **$11.27** | 1 + 17 = **18** min · **$9.02** | 1 + 30 = **31** min · **$13.44** † | **1.9** |
 | All-purpose cluster, 2xlarge | 14 + 18 = **32** min · **$3.49** | 13 + 24 = **37** min · **$5.57** | 10 + 62 = **73** min · **$13.71** † | **2.3** |
 | Job cluster, 8xlarge | 11 + 16 = **28** min · **$5.61** | 12 + 19 = **31** min · **$7.34** | 24 + 30 = **54** min · **$13.00** † | **2.4** |
 | 2xlarge, Photon off | 14 + 24 = **37** min · **$1.58** | 24 + 40 = **64** min · **$3.12** | 26 + 184 = **210** min · **$16.91** † | **2.8** |
-| Pipeline, classic 2xlarge | 1 + 41 = **42** min · **$3.45** | 1 + 55 = **56** min · **$5.80** | 1 + 141 = **141** min · **$18.63** † | **4.1** |
 
 </details>
 
 **Score** = minutes × dollars at each size, averaged across the three sizes (geometric mean), shown relative to the best setup (1.0). Lower is better, and the table is sorted by it. It rewards setups that are both fast and cheap, so a setup that wins on only one of the two lands in the middle.
 
-† SF 10,000 classic, warehouse and pipeline costs are estimates from smaller sizes, see [docs/cost-provenance.md](docs/cost-provenance.md). Per-setup detail (full load and an average day, separately): [results/final_table.md](results/final_table.md).
+† SF 10,000 classic and warehouse costs are estimates from smaller sizes, see [docs/cost-provenance.md](docs/cost-provenance.md). Per-setup detail (full load and an average day, separately): [results/final_table.md](results/final_table.md).
 
 > [!IMPORTANT]
 > One run per cell, so don't trust a two percent gap. AWS costs are node-hours times a price list, not Cost Explorer. Warehouse and all-purpose per-run costs are hourly billing divided between runs by time. This is derived from TPC-DI, not an official TPC-DI result, and is not comparable to published results.
@@ -59,7 +57,6 @@ Each cell is the **full load plus six days** added together: idle minutes (waiti
 | Job cluster (m8gd, 1 to 8 workers, driver on demand) | `jc_xlarge`, `jc_2xlarge`, `jc_8xlarge` |
 | 2xlarge experiments | `jc_2xlarge_spot`, `jc_2xlarge_nophoton`, `jc_2xlarge_min2`, `ap_2xlarge` (all-purpose) |
 | SQL warehouse | `wh_large` (serverless, Large) |
-| Pipelines | `sdp_serverless`, `sdp_2xlarge` (Spark Declarative Pipelines) |
 
 Two tests per setup and size: a **full load** (the original TPC-DI single batch, whole job with start-up) and **six days** in a row (each day its own cold run, so every day pays its own start-up). The warehouse's six days ran as dbt, with the SQL on the warehouse, because a warehouse can't run the Python streaming notebooks. Data sizes: SF 100 (about 10 GB), SF 1,000 (about 100 GB), SF 10,000 (about 1 TB). Region: AWS us-east-1.
 
@@ -117,7 +114,7 @@ Job keys are `full_<setup>` and `daily_<setup>`; run `daily_<setup>` six times f
 | [`docs/design.md`](docs/design.md) | How the benchmark was designed |
 | [`docs/cost-provenance.md`](docs/cost-provenance.md) | Where each cost number came from |
 | [`docs/how-it-was-built.md`](docs/how-it-was-built.md) | What was done, in order, and what was checked |
-| [`results/`](results/) | `final_table.md` and `per_run.csv` (350 runs) |
+| [`results/`](results/) | `final_table.md` and `per_run.csv` (294 runs) |
 | [`databricks/`](databricks/) | The bundle and the generator |
 | [`scripts/check_numbers.py`](scripts/check_numbers.py) | Recomputes the headline numbers from the results table |
 
