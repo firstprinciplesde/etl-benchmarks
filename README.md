@@ -17,26 +17,32 @@ The reasoning for each is in [docs/conclusions.md](docs/conclusions.md).
 
 ## Results
 
-Each cell is the **full load plus six days** added together: idle minutes (waiting) + run minutes (working) = total minutes, and cost (Databricks plus AWS list price). Every cell is one run. Colours rank each setup within its size, for minutes and cost separately: 🟢 best third, 🟡 middle, 🔴 worst third.
+Each cell is the **full load plus six days** added together: idle minutes (waiting) + run minutes (working) = total minutes, and cost (Databricks plus AWS list price). Every cell is one run. In the picture, green is best and red is worst, within each size, for minutes and cost separately.
+
+![Colour-coded results: total minutes and cost for every setup at three sizes](docs/img/results-heat.png)
+
+<details><summary>Same table as text</summary>
 
 | Setup | SF 100 | SF 1,000 | SF 10,000 |
 |---|---|---|---|
-| SQL warehouse, serverless Large | 🟢 1 + 16 = **17** min · 🔴 **$11.27** | 🟢 1 + 17 = **18** min · 🔴 **$9.02** | 🟢 1 + 30 = **31** min · 🟡 **$13.44** † |
-| Serverless, standard | 🔴 21 + 30 = **51** min · 🟢 **$0.75** | 🟡 20 + 28 = **48** min · 🟢 **$1.62** | 🟡 22 + 74 = **96** min · 🟢 **$7.52** |
-| Serverless, performance optimized | 🟢 1 + 18 = **18** min · 🟢 **$1.46** | 🟢 1 + 25 = **26** min · 🟡 **$5.43** | 🟢 1 + 56 = **57** min · 🔴 **$14.11** |
-| Serverless, cap S | 🟢 2 + 18 = **20** min · 🟢 **$1.56** | 🟢 2 + 24 = **26** min · 🟡 **$5.24** | 🟢 1 + 49 = **50** min · 🟡 **$11.81** |
-| Serverless, cap M | 🟢 2 + 18 = **19** min · 🟢 **$1.58** | 🟢 1 + 24 = **26** min · 🟡 **$5.15** | 🟢 1 + 40 = **41** min · 🟡 **$11.14** |
-| Serverless, cap L | 🟢 1 + 18 = **19** min · 🟢 **$1.71** | 🟢 3 + 23 = **26** min · 🟡 **$5.44** | 🟢 1 + 47 = **48** min · 🟡 **$10.65** |
-| Serverless, cap XL | 🟢 1 + 18 = **18** min · 🟢 **$1.65** | 🟢 1 + 25 = **26** min · 🟡 **$4.90** | 🟢 1 + 40 = **41** min · 🟡 **$11.89** |
-| Job cluster, xlarge | 🟡 18 + 20 = **38** min · 🟢 **$0.99** | 🟡 17 + 31 = **48** min · 🟢 **$1.60** | 🟡 38 + 104 = **142** min · 🟢 **$7.71** † |
-| Job cluster, 2xlarge | 🔴 24 + 18 = **42** min · 🟢 **$1.78** | 🟡 20 + 24 = **44** min · 🟢 **$2.74** | 🟢 25 + 60 = **85** min · 🟢 **$6.62** † |
-| 2xlarge, workers on spot | 🔴 30 + 18 = **48** min · 🟢 **$1.46** | 🔴 26 + 23 = **49** min · 🟢 **$1.98** | 🟢 26 + 63 = **89** min · 🟢 **$4.63** † |
-| 2xlarge, Photon off | 🟡 14 + 24 = **37** min · 🟢 **$1.58** | 🔴 24 + 40 = **64** min · 🟢 **$3.12** | 🔴 26 + 184 = **210** min · 🔴 **$16.91** † |
-| 2xlarge, 2 to 8 workers | 🟡 13 + 17 = **30** min · 🟢 **$2.23** | 🟡 14 + 22 = **35** min · 🟢 **$3.23** | 🟢 31 + 48 = **79** min · 🟢 **$6.99** † |
-| Job cluster, 8xlarge | 🟢 11 + 16 = **28** min · 🟡 **$5.61** | 🟢 12 + 19 = **31** min · 🔴 **$7.34** | 🟢 24 + 30 = **54** min · 🟡 **$13.00** † |
-| All-purpose cluster, 2xlarge | 🟡 14 + 18 = **32** min · 🟢 **$3.49** | 🟡 13 + 24 = **37** min · 🟡 **$5.57** | 🟢 10 + 62 = **73** min · 🟡 **$13.71** † |
-| Pipeline, serverless | 🟢 1 + 20 = **20** min · 🟢 **$1.57** | 🟢 1 + 28 = **28** min · 🟡 **$4.55** | 🟡 1 + 108 = **108** min · 🔴 **$14.95** † |
-| Pipeline, classic 2xlarge | 🔴 1 + 41 = **42** min · 🟢 **$3.45** | 🔴 1 + 55 = **56** min · 🟡 **$5.80** | 🟡 1 + 141 = **141** min · 🔴 **$18.63** † |
+| SQL warehouse, serverless Large | 1 + 16 = **17** min · **$11.27** | 1 + 17 = **18** min · **$9.02** | 1 + 30 = **31** min · **$13.44** † |
+| Serverless, standard | 21 + 30 = **51** min · **$0.75** | 20 + 28 = **48** min · **$1.62** | 22 + 74 = **96** min · **$7.52** |
+| Serverless, performance optimized | 1 + 18 = **18** min · **$1.46** | 1 + 25 = **26** min · **$5.43** | 1 + 56 = **57** min · **$14.11** |
+| Serverless, cap S | 2 + 18 = **20** min · **$1.56** | 2 + 24 = **26** min · **$5.24** | 1 + 49 = **50** min · **$11.81** |
+| Serverless, cap M | 2 + 18 = **19** min · **$1.58** | 1 + 24 = **26** min · **$5.15** | 1 + 40 = **41** min · **$11.14** |
+| Serverless, cap L | 1 + 18 = **19** min · **$1.71** | 3 + 23 = **26** min · **$5.44** | 1 + 47 = **48** min · **$10.65** |
+| Serverless, cap XL | 1 + 18 = **18** min · **$1.65** | 1 + 25 = **26** min · **$4.90** | 1 + 40 = **41** min · **$11.89** |
+| Job cluster, xlarge | 18 + 20 = **38** min · **$0.99** | 17 + 31 = **48** min · **$1.60** | 38 + 104 = **142** min · **$7.71** † |
+| Job cluster, 2xlarge | 24 + 18 = **42** min · **$1.78** | 20 + 24 = **44** min · **$2.74** | 25 + 60 = **85** min · **$6.62** † |
+| 2xlarge, workers on spot | 30 + 18 = **48** min · **$1.46** | 26 + 23 = **49** min · **$1.98** | 26 + 63 = **89** min · **$4.63** † |
+| 2xlarge, Photon off | 14 + 24 = **37** min · **$1.58** | 24 + 40 = **64** min · **$3.12** | 26 + 184 = **210** min · **$16.91** † |
+| 2xlarge, 2 to 8 workers | 13 + 17 = **30** min · **$2.23** | 14 + 22 = **35** min · **$3.23** | 31 + 48 = **79** min · **$6.99** † |
+| Job cluster, 8xlarge | 11 + 16 = **28** min · **$5.61** | 12 + 19 = **31** min · **$7.34** | 24 + 30 = **54** min · **$13.00** † |
+| All-purpose cluster, 2xlarge | 14 + 18 = **32** min · **$3.49** | 13 + 24 = **37** min · **$5.57** | 10 + 62 = **73** min · **$13.71** † |
+| Pipeline, serverless | 1 + 20 = **20** min · **$1.57** | 1 + 28 = **28** min · **$4.55** | 1 + 108 = **108** min · **$14.95** † |
+| Pipeline, classic 2xlarge | 1 + 41 = **42** min · **$3.45** | 1 + 55 = **56** min · **$5.80** | 1 + 141 = **141** min · **$18.63** † |
+
+</details>
 
 † SF 10,000 classic, warehouse and pipeline costs are estimates from smaller sizes, see [docs/cost-provenance.md](docs/cost-provenance.md). Per-setup detail (full load and an average day, separately): [results/final_table.md](results/final_table.md).
 
