@@ -19,7 +19,7 @@ The reasoning for each is in [docs/conclusions.md](docs/conclusions.md).
 
 Each cell is the **full load plus six days** added together: startup minutes (waiting for compute) + run minutes (working) = total minutes, and cost (Databricks plus AWS list price). Every cell is one run. In the picture, green is best and red is worst within each size.
 
-![Results: minutes and cost for every setup at three sizes, sorted by score](docs/img/results-heat.png)
+![Results: minutes and cost for every setup at three sizes, numbered: the three fastest and cheapest per size](docs/img/results-heat.png)
 
 <details><summary>Same table as text</summary>
 
