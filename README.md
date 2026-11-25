@@ -1,10 +1,41 @@
+<div align="center">
+
 # etl-benchmarks
 
 **What one ETL pipeline costs, and how long it takes, on each Databricks compute option: 14 setups, 294 runs, a full load plus six days at three data sizes, so you can pick compute from numbers.**
 
-These benchmarks are on Databricks. I'll be testing other platforms and tools next, and they'll land in this repo as they're done.
+[YouTube channel](https://www.youtube.com/@FirstPrinciplesDE) · [Conclusions](docs/conclusions.md) · [Every run](results/per_run.csv) · [Run it yourself](#run-it-yourself) · Databricks on AWS
 
-[YouTube channel](https://www.youtube.com/@FirstPrinciplesDE) · [Conclusions](docs/conclusions.md) · [Every run](results/per_run.csv) · [Run it yourself](#run-it-yourself) · [License](LICENSE)
+Companion repo for the Databricks compute video on the First Principles Data Engineering channel. These benchmarks are on Databricks; other platforms and tools land here as I finish them. If it helps you, star the repo so you can find it again.
+
+</div>
+
+```mermaid
+flowchart LR
+  A["TPC-DI derived data<br/>SF 100 · 1,000 · 10,000"] --> B["Databricks Asset Bundle<br/>one job per setup"]
+  B --> C["14 compute setups<br/>cold start every run"]
+  C --> D[("system.billing.usage<br/>+ list prices")]
+  D --> E["results/final_table.md<br/>294 runs"]
+```
+
+## Check the numbers in one command
+
+The headline numbers in the video and in this README are recomputed from the results table, no Databricks needed:
+
+```bash
+git clone https://github.com/firstprinciplesde/etl-benchmarks.git && cd etl-benchmarks
+python3 scripts/check_numbers.py
+```
+
+```text
+PASS hook warehouse SF1000 $ 9.02 (want 8.95 to 9.1)
+PASS standard SF1000 $ 1.62 (want 1.59 to 1.6500000000000001)
+PASS spot cost saving % SF1000 27.74 (want 15 to 32)
+...
+PASS warehouse SF10000 $ 13.44 (want 13.4 to 13.5)
+
+ALL PASS
+```
 
 ## The answer
 
@@ -104,6 +135,18 @@ Details: [docs/cost-provenance.md](docs/cost-provenance.md). The images do not m
 
 Two tests per setup and size: a **full load** (the original TPC-DI single batch, whole job with start-up) and **six days** in a row (each day its own cold run, so every day pays its own start-up). The warehouse's six days ran as dbt, with the SQL on the warehouse, because a warehouse can't run the Python streaming notebooks. Data sizes: SF 100 (about 10 GB), SF 1,000 (about 100 GB), SF 10,000 (about 1 TB). Region: AWS us-east-1.
 
+## What's inside
+
+| Path | What |
+|---|---|
+| [`docs/conclusions.md`](docs/conclusions.md) | The conclusions, by section |
+| [`docs/design.md`](docs/design.md) | How the benchmark was designed |
+| [`docs/cost-provenance.md`](docs/cost-provenance.md) | Where each cost number came from |
+| [`docs/how-it-was-built.md`](docs/how-it-was-built.md) | What was done, in order, and what was checked |
+| [`results/`](results/) | `final_table.md` and `per_run.csv` (294 runs) |
+| [`databricks/`](databricks/) | The bundle and the generator |
+| [`scripts/check_numbers.py`](scripts/check_numbers.py) | Recomputes the headline numbers from the results table |
+
 ## How it was set up
 
 The workload is **[Shannon Barrow's databricks-tpc-di](https://github.com/shannon-barrow/databricks-tpc-di)**, a Databricks implementation of TPC-DI (a retail brokerage ETL benchmark). All the credit goes to him. His code runs unchanged; this repo adds the Databricks Asset Bundle that creates one job per setup, the cold-start rules, and the measurement.
@@ -149,18 +192,6 @@ databricks bundle run full_srv_standard -p <profile> --var tpcdi_path=/Workspace
 ```
 
 Job keys are `full_<setup>` and `daily_<setup>`; run `daily_<setup>` six times for the six days, after `daily_setup`. See [databricks/README.md](databricks/README.md).
-
-## What's inside
-
-| Path | What |
-|---|---|
-| [`docs/conclusions.md`](docs/conclusions.md) | The conclusions, by section |
-| [`docs/design.md`](docs/design.md) | How the benchmark was designed |
-| [`docs/cost-provenance.md`](docs/cost-provenance.md) | Where each cost number came from |
-| [`docs/how-it-was-built.md`](docs/how-it-was-built.md) | What was done, in order, and what was checked |
-| [`results/`](results/) | `final_table.md` and `per_run.csv` (294 runs) |
-| [`databricks/`](databricks/) | The bundle and the generator |
-| [`scripts/check_numbers.py`](scripts/check_numbers.py) | Recomputes the headline numbers from the results table |
 
 ## License
 
